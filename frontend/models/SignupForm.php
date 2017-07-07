@@ -86,21 +86,16 @@ class SignupForm extends Model
      *
      * @return User|null the saved model or null if saving fails
      */
-    public function signup()
+     public function signup()
     {
         if (!$this->validate()) {
             return null;
         }
         
         $user = new User();
-
-        
-
         /*
 
         //$user->status = 'Enable';*/
-
-
 
         $user->username = $this->email;
         $user->email = $this->email;
@@ -110,10 +105,17 @@ class SignupForm extends Model
         $user->mobile_handphone = $this->mobile_handphone;
         $user->telephone = $this->telephone;
         $user->pin_bb = $this->pin_bb;
+        $user->status = 0; 
+        if ($user->save()) { 
+            return $user; 
+        }
 
+        return null;
 
-
-        
-        return $user->save() ? $user : null;
+        //return $user->save() ? $user : null;
     }
+
+
+
+    
 }

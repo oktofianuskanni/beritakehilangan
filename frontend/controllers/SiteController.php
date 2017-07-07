@@ -148,34 +148,61 @@ class SiteController extends Controller
      * @return mixed
      */
 
-
-    public function actionSignup()
+   public function actionSignup()
     {
-
-
-
-
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-
-
-
-
-                    return $this->goHome();
-                }
+                $email = \Yii::$app->mailer->compose()
+                ->setTo($user->email)
+                ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
+                ->setSubject('Signup Confirmation')
+                ->setTextBody("
+                Click this link ".\yii\helpers\Html::a('confirm',
+                Yii::$app->urlManager->createAbsoluteUrl(
+                ['site/confirm','id'=>$user->id,'key'=>$user->auth_key]
+                ))
+                )
+                ->send();
+                    if($email){
+                        Yii::$app->getSession()->setFlash('success','Check Your email!');
+                    }
+                    else{
+                        Yii::$app->getSession()->setFlash('warning','Failed, contact Admin!');
+                    }
+                        return $this->goHome();
+                    }
             }
-        }
-
-
-        //echo "sukses";
-        //exit();
-
+         
         return $this->render('signup', [
             'model' => $model,
         ]);
     }
+
+
+
+
+
+
+    public function actionConfirm($id, $key)
+    {
+        $user = \common\models\User::find()->where([
+            'id'=>$id,
+            'auth_key'=>$key,
+            'status'=>0,
+            ])->one();
+        if(!empty($user)){
+            $user->status=10;
+            $user->save();
+            Yii::$app->getSession()->setFlash('success','Success!');
+        }
+        
+        else{
+            Yii::$app->getSession()->setFlash('warning','Failed!');
+        }
+        return $this->goHome();
+    }
+
 
 
 
