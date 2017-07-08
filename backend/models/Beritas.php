@@ -55,10 +55,10 @@ class Beritas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'category_id', 'jenis_berita', 'judul_berita', 'deskripsi_berita', 'tanggal_kejadian', 'email', 'hub_email', 'no_telp1', 'no_telp2', 'pin_bb', 'hub_wa', 'status', 'regency_id', 'district_id', 'village_id', 'alamat', 'created_at', 'updated_at', 'tampilkan_alamatlengkap', 'tampilkan_notelp1', 'tampilkan_notelp2', 'hub_pin_bb', 'status_ditemukan', 'tampil_nama'], 'required'],
+            [['user_id', 'category_id', 'jenis_berita', 'judul_berita', 'deskripsi_berita', 'tanggal_kejadian', 'email', 'hub_email', 'no_telp1', 'no_telp2', 'pin_bb', 'hub_wa', 'status', 'regency_id', 'district_id', 'village_id', 'alamat', 'created_at', 'updated_at', 'tampilkan_alamatlengkap', 'tampilkan_notelp1', 'tampilkan_notelp2', 'hub_pin_bb'], 'required'],
             [['user_id', 'category_id', 'hub_email', 'hub_wa', 'province_id', 'regency_id', 'district_id', 'village_id'], 'integer'],
             [['jenis_berita', 'deskripsi_berita', 'status'], 'string'],
-            [['tanggal_kejadian', 'created_at', 'updated_at'], 'safe'],
+            [['tanggal_kejadian', 'created_at', 'updated_at', 'status_ditemukan', 'tampil_nama'], 'safe'],
             [['judul_berita'], 'string', 'max' => 50],
             [['email', 'no_telp1', 'no_telp2', 'pin_bb', 'tampilkan_alamatlengkap'], 'string', 'max' => 100],
             [['alamat'], 'string', 'max' => 200],

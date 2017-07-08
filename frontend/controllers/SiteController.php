@@ -12,6 +12,9 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\helpers\Html;
+use yii\Faker\Factory;
+
 
 /**
  * Site controller
@@ -34,7 +37,8 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        //'actions' => ['logout'],
+                        'actions' => ['logout', 'index','generate'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -46,8 +50,12 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
+
         ];
     }
+
+
+
 
     /**
      * @inheritdoc
@@ -157,18 +165,20 @@ class SiteController extends Controller
                 ->setTo($user->email)
                 ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
                 ->setSubject('Signup Confirmation')
-                ->setTextBody("
-                Click this link ".\yii\helpers\Html::a('confirm',
-                Yii::$app->urlManager->createAbsoluteUrl(
-                ['site/confirm','id'=>$user->id,'key'=>$user->auth_key]
-                ))
-                )
+
+                ->setTextBody("Klik link berikut ini untuk aktivasi account anda di: ".Yii::$app->urlManager->createAbsoluteUrl(['site/confirm','id'=>$user->id,'key'=>$user->auth_key]))
                 ->send();
+
+
+
+
+                //exit();
+
                     if($email){
-                        Yii::$app->getSession()->setFlash('success','Check Your email!');
+                        Yii::$app->getSession()->setFlash('success','Kami telah mengirim email untuk aktivasi account. Silahkan cek email anda!');
                     }
                     else{
-                        Yii::$app->getSession()->setFlash('warning','Failed, contact Admin!');
+                        Yii::$app->getSession()->setFlash('warning','Error, Hubungi admin!');
                     }
                         return $this->goHome();
                     }
@@ -184,8 +194,12 @@ class SiteController extends Controller
 
 
 
+
+
     public function actionConfirm($id, $key)
     {
+        //echo $id." & ".$key;
+        //exit();
         $user = \common\models\User::find()->where([
             'id'=>$id,
             'auth_key'=>$key,
@@ -194,7 +208,7 @@ class SiteController extends Controller
         if(!empty($user)){
             $user->status=10;
             $user->save();
-            Yii::$app->getSession()->setFlash('success','Success!');
+            Yii::$app->getSession()->setFlash('success','Aktivasi Account Anda Success! Silahkan Login');
         }
         
         else{
@@ -216,21 +230,44 @@ class SiteController extends Controller
      */
     public function actionRequestPasswordReset()
     {
+
+
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
+                //exit();
                 return $this->goHome();
             } else {
                 Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
             }
         }
 
+
         return $this->render('requestPasswordResetToken', [
             'model' => $model,
         ]);
     }
+
+
+
+    public function actionGenerate($row=10,$iterate=1){
+        $start = microtime(true);
+        $faker = Faker\Factory::create();
+        $datas = [];
+        for($j=1;$j<=$iterate;$j++){
+            for($i=1;$i<=$row;$i++){                                     
+                $datas[$i]=[$faker->name,rand(0,1),$faker->dateTimeThisCentury->format('Y-m-d'),$faker->email,$faker->phoneNumber,$faker->streetAddress];
+            }   
+            \Yii::$app->db->createCommand()->batchInsert('employee', ['name', 'gender', 'born', 'email', 'phone', 'address'], $datas)->execute();
+        }   
+         
+        $time_elapsed_us = microtime(true) - $start;
+        echo ($row*$iterate).' = '.$time_elapsed_us.' <br>';
+    }
+
 
     /**
      * Resets password.

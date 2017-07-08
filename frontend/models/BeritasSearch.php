@@ -75,20 +75,27 @@ class BeritasSearch extends Beritas
         }
 
         $query->joinWith('category');
-        $query->joinWith('user');
+        //$query->joinWith('user');
 
+
+        //$query->andFilterWhere([
+            //'beritas.status' => 'Enable',
+        //]);
 
         $query
-            //->andFilterWhere(['like', 'user.nama_lengkap', $this->user_id])
             ->orFilterWhere(['like', 'jenis_berita', $this->globalSearch])
             ->orFilterWhere(['like', 'category.category_name', $this->globalSearch])
             ->orFilterWhere(['like', 'judul_berita', $this->globalSearch])
-            ->orFilterWhere(['like', 'deskripsi_berita', $this->globalSearch]);
+            ->orFilterWhere(['like', 'deskripsi_berita', $this->globalSearch])
+            ->andFilterWhere(['like', 'beritas.status', 'Enable']);
+
             //->andFilterWhere(['like', 'email', $this->email])
             //->andFilterWhere(['like', 'no_telp1', $this->no_telp1])
             //->andFilterWhere(['like', 'no_telp2', $this->no_telp2])
             //->andFilterWhere(['like', 'pin_bb', $this->pin_bb])
             //->andFilterWhere(['like', 'status', $this->status]);
+
+            
 
         return $dataProvider;
     }

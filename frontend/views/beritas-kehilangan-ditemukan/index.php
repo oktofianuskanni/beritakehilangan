@@ -108,7 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'contentOptions' => ['class' => 'text-center'],
                                             'headerOptions' => ['class' => 'text-center'],
                                         ],
-
+                                        'status',
                                         [
                                             'attribute' => 'berita_id',
                                             'format' => 'html',

@@ -88,7 +88,7 @@ class BeritasKehilanganDitemukan extends \yii\db\ActiveRecord
             'no_telp2' => 'Mobile Handphone',
             'pin_bb' => 'Pin Bb',
             'hub_wa' => 'Bisa bubungi saya lewat WA',
-            'status' => 'Status',
+            'status' => 'Berita di tampilkan ke Publik?',
             'province_id' => 'Province ID',
             'regency_id' => 'Regency ID',
             'district_id' => 'District ID',
@@ -100,8 +100,9 @@ class BeritasKehilanganDitemukan extends \yii\db\ActiveRecord
             'tampilkan_alamatlengkap' => 'Tampilkan alamat ke halaman utama',            
             'alamat' => 'alamat',            
             'hub_pin_bb' => 'Bisa hubungi saya lewat BBM',
-            'status_ditemukan' => 'Status',
+            'status_ditemukan' => 'Status saat ini?',
             'tampil_nama' => 'Tampilkan nama ke halaman utama',
+            'file' => 'Upload foto *.jpg/png',
 
 
 

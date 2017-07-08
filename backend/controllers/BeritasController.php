@@ -37,7 +37,7 @@ class BeritasController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->can('administrator@beritakehilangan.com@beritakehilangan.com')){
+        if (Yii::$app->user->can('administrator@beritakehilangan.com')){
             $searchModel = new BeritasSerach();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -59,7 +59,7 @@ class BeritasController extends Controller
      */
     public function actionView($id)
     {
-        if (Yii::$app->user->can('administrator@beritakehilangan.com@beritakehilangan.com')){
+        if (Yii::$app->user->can('administrator@beritakehilangan.com')){
             return $this->render('view', [
                 'model' => $this->findModel($id),
             ]);
@@ -78,7 +78,7 @@ class BeritasController extends Controller
     public function actionCreate()
     {
         
-        if (Yii::$app->user->can('administrator@beritakehilangan.com@beritakehilangan.com')){
+        if (Yii::$app->user->can('administrator@beritakehilangan.com')){
 
             $model = new Beritas();
 

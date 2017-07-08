@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             //'id',
             'nama_lengkap',
-            'username',
+            //'username',
             //'auth_key',
             //'password_hash',
             //'password_reset_token',

@@ -307,6 +307,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                             ],
 
 
+                                            'status',
+
                                             'updated_at',
                                         ],
                                         ]) 

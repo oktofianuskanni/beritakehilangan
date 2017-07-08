@@ -65,6 +65,10 @@ use kartik\file\FileInput;
                                     <?= $form->field($model, 'judul_berita')->textInput(['rows' => 6]) ?>
                                     <?= $form->field($model, 'deskripsi_berita')->textarea(['rows' => 6]) ?>
 
+                                     <?php //echo $form->field($model, 'email')->textInput(['readonly' => !$model->isNewRecord]) ?> 
+                                     <?php //echo $form->field($model, 'pin_bb')->hiddenInput(['attribute'=>'pin_bb','value'=>$get_id->pin_bb])->label(false); ?> 
+
+
                                     <!--     <?= $form->field($model, 'tanggal_kejadian')->widget(
                                         DatePicker::className(), [
                                             // inline too, not bad
@@ -124,6 +128,14 @@ use kartik\file\FileInput;
                                         //echo $form->field($model, 'tampil_nama')->checkBox(['label' => 'Tampilkan nama di halaman utama', 'uncheck' => null, 'selected' => true]);  
                                     ?>
 
+
+                                    <?php 
+                                        if (!$model->isNewRecord){
+                                                echo $form->field($model, 'status')->dropDownList([ 'Enable' => 'Enable', 'Disable' => 'Disable', ], ['' => '']);
+                                        }
+                                    ?>
+
+
                                     <?PHP 
 
                                     /*        
@@ -134,15 +146,17 @@ use kartik\file\FileInput;
                                             ->scalar();*/
 
 
+
+
                                         if ($model->jenis_berita=='Ditemukan'){
                                             //if ($_GET['']!=='beritas-kehilangan-ditemukan/create'){
-                                                echo $form->field($model, 'status_ditemukan')->dropDownList([ '0' => 'Belum Ditemukan', '1' => 'Telah Ditemukan', ], ['prompt' => 'Pilih Status Kehilangan']); 
+                                                echo $form->field($model, 'status_ditemukan')->dropDownList([ '0' => 'Belum Ditemukan', '1' => 'Telah Ditemukan', ], ['' => '']); 
                                             //}
                                         }
 
                                         if ($model->jenis_berita=='Kehilangan'){
                                            // if ($_GET['']!=='beritas-kehilangan-ditemukan/create'){
-                                                echo $form->field($model, 'status_ditemukan')->dropDownList([ '2' => 'Belum diambil oleh pemiliknya', '3' => 'Sudah diambil oleh pemiliknya', ], ['prompt' => 'Pilih Status Ditemukan']); 
+                                                echo $form->field($model, 'status_ditemukan')->dropDownList([ '2' => 'Belum diambil oleh pemiliknya', '3' => 'Sudah diambil oleh pemiliknya', ], ['' => '']); 
                                            // }
                                         }
                                     ?>

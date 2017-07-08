@@ -74,15 +74,15 @@ use yii\web\Url;
 
                                                       <?= $form->field($model, 'nama_lengkap')->textInput(['maxlength' => true]) ?>
 
-                                                      <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+                                                      <!-- <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?> -->
 
                                                       <!-- <?= $form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?> -->
 
-                                                      <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+                                                      <?= $form->field($model, 'email')->textInput(['readonly' => !$model->isNewRecord]) ?> 
 
 
                                                       <?php 
-                                                          $dataProvinces=ArrayHelper::map(Provinces::find()->asArray()->all(), 'province_id', 'name');
+                                                          $dataProvinces=ArrayHelper::map(Provinces::find()->orderBy('name ASC')->asArray()->all(), 'province_id', 'name');
                                                           echo $form->field($model, 'province_id')->dropDownList($dataProvinces, 
                                                            ['prompt'=>'Pilih Propinsi',
                                                             'onchange'=>'
@@ -98,7 +98,7 @@ use yii\web\Url;
 
                                                       <?php 
 
-                                                          $dataRegencies=ArrayHelper::map(Regencies::find()->asArray()->all(), 'regency_id', 'name');
+                                                          $dataRegencies=ArrayHelper::map(Regencies::find()->orderBy('name ASC')->asArray()->all(), 'regency_id', 'name');
                                                           echo $form->field($model, 'regency_id')->dropDownList($dataRegencies, 
                                                            ['prompt'=>'Pilih Kabupaten/ Kota','id'=>'name']);
 

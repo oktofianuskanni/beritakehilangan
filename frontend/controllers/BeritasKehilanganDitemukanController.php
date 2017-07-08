@@ -102,7 +102,7 @@ class BeritasKehilanganDitemukanController extends Controller
                 $model->user_id = $get_id->id;
                 $model->created_at = date('Y-m-d H:i:s');
                 $model->updated_at = date('Y-m-d H:i:s');
-                $model->status = 'Disable';
+                $model->status = 'Enable';
                 $model->email = $get_id->email;       
                 $model->save();
 

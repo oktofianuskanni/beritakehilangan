@@ -72,7 +72,7 @@ class BeritasController extends Controller
             $dataProvider = new ActiveDataProvider([
                 'query' => Beritas::find()
                 //->from('beritas','category')
-                ->where(['status' => 'Disable'])->orderBy('berita_id DESC'),
+                ->where(['status' => 'Enable'])->orderBy('berita_id DESC'),
                 'pagination' => [
                     'pageSize' => 5,
                 ],

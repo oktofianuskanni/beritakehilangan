@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\DocumentsSerach */
+/* @var $searchModel frontend\models\GenerateSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Documents';
+$this->title = 'Generates';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="documents-index">
+<div class="generate-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Documents', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Generate', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,15 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            //'document_id',
-            [
-                'attribute'=>'berita_id',
-                'value'=>'berita.judul_berita',
-            ],
-            //'berita_id',
-            'filename',
-            //'created_at',
-            'updated_at',
+            'id',
+            'name',
+            'gender',
+            'born',
+            'email:email',
+            // 'phone',
+            // 'address',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
