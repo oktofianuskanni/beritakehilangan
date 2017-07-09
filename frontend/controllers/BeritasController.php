@@ -15,6 +15,8 @@ use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
 
 use frontend\models\Category;
+use frontend\models\BeritasHits;
+
 use yii\helpers\Html;
 
 use yii\imagine\Image;
@@ -114,6 +116,27 @@ class BeritasController extends Controller
      */
     public function actionView($id)
     {
+
+        $beritashitsdata = new BeritasHits;
+        $berita_id_hits = BeritasHits::find()->where(['berita_id' => $id])->one();
+        if ($berita_id_hits){
+            //echo 'ada';
+            $post = BeritasHits::findOne($berita_id_hits->beritas_hits_id);
+            $post->updateCounters(['hits' => 1]);
+        }
+        else {
+            //echo 'tidak ada';
+            $beritashitsdata->berita_id = $id;
+            $beritashitsdata->hits = 1;  
+            $beritashitsdata->created_at = date('Y-m-d H:i:s');
+            $beritashitsdata->updated_at = date('Y-m-d H:i:s');     
+            $beritashitsdata->save();
+        }
+        
+        //cho $berita_id_hits->hits;
+        //exit();
+
+        //exit();
         // jila dari ada dari form pencarian
         if (!$id){
             //echo 'cari';

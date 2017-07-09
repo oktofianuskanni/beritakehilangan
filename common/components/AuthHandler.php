@@ -27,7 +27,12 @@ class AuthHandler
         $attributes = $this->client->getUserAttributes();
         $email = ArrayHelper::getValue($attributes, 'email');
         $id = ArrayHelper::getValue($attributes, 'id');
-        $nickname = ArrayHelper::getValue($attributes, 'email');
+        $username = ArrayHelper::getValue($attributes, 'email');
+        $nama_lengkap = ArrayHelper::getValue($attributes, 'name');
+        $avatar = ArrayHelper::getValue($attributes, 'avatar');
+        $profile = ArrayHelper::getValue($attributes, 'profile');
+
+
 
         /* @var Auth $auth */
         $auth = Auth::find()->where([
@@ -49,10 +54,12 @@ class AuthHandler
                 } else {
                     $password = Yii::$app->security->generateRandomString(6);
                     $user = new User([
-                        'username' => $nickname,
-                        // 'github' => $nickname,
+                        'username' => $username,
+                        'nama_lengkap' => $nama_lengkap,
                         'email' => $email,
                         'password' => $password,
+                        'profile' => $profile,
+                        'avatar' => $avatar,
                     ]);
                     $user->generateAuthKey();
                     $user->generatePasswordResetToken();

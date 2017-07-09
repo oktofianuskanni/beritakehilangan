@@ -32,6 +32,32 @@ $this->params['breadcrumbs'][] = $this->title;
              'email:email',
              'status',
             // 'created_at',
+
+             //'avatar',
+
+
+           [
+                'attribute' => 'avatar',
+                'format' => 'html',
+                'label' => 'Foto',   
+                'contentOptions' => ['class' => 'text-center'],
+                'headerOptions' => ['class' => 'text-center'],
+                'value' => function($model){
+                        $beritaDocuments = (new \yii\db\Query())
+                            ->select('avatar')
+                            ->from('user')
+                            ->where(['id'=>$model->id])
+                            ->scalar();
+                       if ($beritaDocuments){
+                            return Html::img($beritaDocuments,['height' => '50px']);  
+                        }
+                        else {
+                            return Html::img(Yii::$app->request->baseUrl.'/'.'uploads/empty.jpg',['height' => '50px']);
+                        }
+
+                }
+            ],
+
              'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],

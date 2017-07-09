@@ -7,6 +7,8 @@ use yii\widgets\ListView;
 use frontend\models\Documents;
 use frontend\models\Category;
 use frontend\models\User;
+use yii\data\ActiveDataProvider;
+use frontend\models\Beritas;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\BeritasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -44,28 +46,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         <li role="presentation"><a class="navbar-brand hidden-lg hidden-md" href="<?php Yii::$app->request->baseUrl; ?>/user/view?id=<?php echo Yii::$app->user->identity->id; ?>">Profile Anda</a></li>
                         <?php } ?>
                         <li role="presentation"><a href="#recent-jobs" data-toggle="tab">Berita Terpopuler</a></li>
+
                         <li role="presentation" class="active"><a href="#popular-jobs" data-toggle="tab">Berita Terbaru</a></li>
                     </ul>
                 </div>
 
                 <div class="tab-content">
+
                     <div role="tabpanel" class="tab-pane fade in" id="recent-jobs">
-                    berita terpopuler
-                    </div>
+                        <!-- isi disini -->
+                        popular
+                    </div><!-- tab-pane -->
 
                     <div role="tabpanel" class="tab-pane fade in active" id="popular-jobs">
-                        <div class="job-ad-item">
-                            <div class="item-info">
-                             <div class="site-index">
-
-
-                                <div class="body-content">
-                                    <div class="section latest-jobs-ads">
-                                        <div class="tab-content">
-                                            <div role="tabpanel" class="tab-pane fade in active" id="popular-jobs">
-
-
-
                                                 <!-- isi disini -->
 
                                                 <?php
@@ -144,14 +137,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             </div><!-- item-info -->
                                                         </div>
                                                 <?php } ]); ?>
-                                            </div><!-- tab-pane -->
-                                        </div><!-- tab-content -->
-                                    </div><!-- trending ads -->  
-                                </div>
-                             </div>
-                            </div><!-- item-info -->
-                        </div><!-- ad-item -->  
                     </div><!-- tab-pane -->
+
                 </div><!-- tab-content -->
             </div><!-- trending ads -->  
         </div>

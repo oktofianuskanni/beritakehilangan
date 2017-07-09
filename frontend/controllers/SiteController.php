@@ -152,13 +152,14 @@ class SiteController extends Controller
 
         // outputnya google: Array ( [0] => Array ( [value] => oktofianuskanni@gmail.com [type] => account ) ) 1
 
-        // $attributes = $client->getUserAttributes();
+         //$attributes = $client->getUserAttributes();
         // $dataku=$attributes['emails'];
         // die(print_r($dataku[0]['value']));
         
 
 
 
+        //die(print_r($attributes));
         //die(print_r($attributes['emails']));
 
 

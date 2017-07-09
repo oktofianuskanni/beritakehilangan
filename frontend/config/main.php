@@ -67,6 +67,14 @@ return [
                     'class' => 'yii\authclient\clients\Facebook',
                     'clientId' => '146031295964640',
                     'clientSecret' => '60530592c21f01588355b0c8652727ec',
+                    'normalizeUserAttributeMap' => [
+                        'avatar' => function ($attributes) {
+                            return "https://graph.facebook.com/{$attributes['id']}/picture?width=1920";
+                        },
+                        'profile' => function ($attributes) {
+                            return "https://www.facebook.com/{$attributes['id']}";
+                        },
+                    ],
                 ],
 
 
@@ -78,15 +86,11 @@ return [
                     ],
                     'consumerKey' => 'XmztlBMjDL7HUTkFL3CRiHqMX',
                     'consumerSecret' => 'OW7AwgYshdvHJHqaJHFyKOcIZDTlpybLgY3zy1GrJ63fBCLEBL',
+                    'normalizeUserAttributeMap' => [
+                        'avatar' => 'profile_image_url',
+                    ]
+
                 ],
-
-/*                'google' => [
-                      'class' => 'yii\authclient\clients\Google',
-                      'clientId'     => '1042155925137-9aqu20s67685fa44o35sro6pn1ri2og3.apps.googleusercontent.com',
-                      'clientSecret' => 'n7hu7LcAEL7BH3Ck47qk9o7U',
-                ],*/
-
-
 
                 'google' => [
                     'class' => 'yii\authclient\clients\Google',
