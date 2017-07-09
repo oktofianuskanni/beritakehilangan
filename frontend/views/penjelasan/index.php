@@ -56,14 +56,14 @@ $this->title = 'BERITA KEHILANGAN';
             <div class="col-lg-4">
                 <h2>Yang boleh dilakukan</h2>
 
-                <p>Menunujuk pada tujuan kami, tentunya apa saja boleh di informasikan lewat layanan ini selama masih berhubungan dengan berita kehilangan atau ditemukan. 
+                <p>Menunjuk pada tujuan kami, tentunya apa saja boleh di informasikan lewat layanan ini selama masih berhubungan dengan berita kehilangan atau ditemukan. 
                    </p>
 
                 <p><a class="btn btn-default" href="#">Detail &raquo;</a></p>
             </div>
             <div class="col-lg-4">
                 <h2>Tidak boleh dilakukan</h2>
-                <p>Menginformasikan berita kehilangan atau ditemukan yang tidak benar, karena tentunya proses hukum akan menanti anda jika ada yang complain. Dalam proses registrasi, tentu ada harus memasukkan data yang valid. Untuk email terdaftar, sistem kami akan mencoba mengirim email ke alamat email terdaftar, jika gagal maka sistem secara otomatis menghapus account tersebut.</p>
+                <p>Menginformasikan berita kehilangan atau ditemukan yang tidak benar, karena tentunya proses hukum akan menanti anda jika ada yang complain. Dalam proses registrasi, tentu ada harus memasukkan data yang valid. Untuk Nomor HP/ Mobile Phone yang terdaftar, sistem kami akan mencoba mengirim sms ke nomor yang terdaftar pada sistem kami, jika gagal maka sistem secara otomatis menghapus account tersebut.</p>
 
                 <p><a class="btn btn-default" href="#">Detail &raquo;</a></p>
             </div>

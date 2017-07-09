@@ -63,9 +63,19 @@ class BeritasKehilanganDitemukanController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        Yii::$app->user->identity->id;
+        $get_id = Beritas::find()->where(['berita_id' => $id, 'user_id' => Yii::$app->user->identity->id])->one();
+        if ($get_id){
+           //echo "1";
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+
+        else {
+            //echo "2";
+            return $this->redirect(['beritas/index']);
+        }
     }
 
 
@@ -189,170 +199,178 @@ class BeritasKehilanganDitemukanController extends Controller
     {
         $model = $this->findModel($id);
 
+        Yii::$app->user->identity->id;
+        $get_id = Beritas::find()->where(['berita_id' => $id, 'user_id' => Yii::$app->user->identity->id])->one();
+        if ($get_id){
+            if ($model->load(Yii::$app->request->post())) {
 
 
-        if ($model->load(Yii::$app->request->post())) {
+
+
+                /*
+                if ($model->tampilkan_alamatlengkap){
+                    $provinceId = (new \yii\db\Query())
+                    ->select('province_id')
+                    ->from(['user'])
+                    ->where(['user.id'=>$model->user_id])
+                    ->scalar();
+
+                    $regencyId = (new \yii\db\Query())
+                    ->select('regency_id')
+                    ->from(['user'])
+                    ->where(['user.id'=>$model->user_id])
+                    ->scalar();
+
+                    $alamatLengkap = (new \yii\db\Query())
+                    ->select('alamat')
+                    ->from(['user'])
+                    ->where(['user.id'=>$model->user_id])
+                    ->scalar();
+
+                    $model->province_id=$provinceId;
+                    $model->regency_id=$regencyId;
+                    $model->alamat=$alamatLengkap;
+                }
+
+                else {
+                    $model->province_id='';
+                    $model->regency_id='';
+                    $model->alamat='';           
+                }
+
+
+                // pilihan tampil nomor telepon
+                if ($model->tampilkan_notelp1){
+                    $viewTelepone = (new \yii\db\Query())
+                    ->select('telephone')
+                    ->from(['user'])
+                    ->where(['user.id'=>$model->user_id])
+                    ->scalar();
+                    $model->no_telp1=$viewTelepone;
+                }
+
+                else {
+                    $model->no_telp1='';
+                }
 
 
 
+                // pilihan tampil mobile hpn
+                if ($model->tampilkan_notelp2){
+                    $viewMobile = (new \yii\db\Query())
+                    ->select('mobile_handphone')
+                    ->from(['user'])
+                    ->where(['user.id'=>$model->user_id])
+                    ->scalar();
+                    $model->no_telp2=$viewMobile;
+                }
 
-            /*
-            if ($model->tampilkan_alamatlengkap){
-                $provinceId = (new \yii\db\Query())
-                ->select('province_id')
-                ->from(['user'])
-                ->where(['user.id'=>$model->user_id])
-                ->scalar();
+                else {
+                    $model->no_telp2='';
+                }
 
-                $regencyId = (new \yii\db\Query())
-                ->select('regency_id')
-                ->from(['user'])
-                ->where(['user.id'=>$model->user_id])
-                ->scalar();
+                */
+                $getBeritaId = new Documents;
+                //$model = new BeritasKehilanganDitemukan();
 
-                $alamatLengkap = (new \yii\db\Query())
-                ->select('alamat')
-                ->from(['user'])
-                ->where(['user.id'=>$model->user_id])
-                ->scalar();
+                if ($model->file = UploadedFile::getInstance($model,'file')) {
+                    if(isset($model->file->extension)){
+                        // print_r($model->file).' ';
+                        // print_r($model->file->extension).' ';
+                        // print_r($model->berita_id).' ';
+                        // print_r($model->berita_id).' ';
+                        // print_r($model->berita_id).' ';
+                        // print_r($model->berita_id).' ';
+                        //print_r($model->file->baseName).' ';
+                        //print_r($model->file->extension).' ';
+                         //exit();
 
-                $model->province_id=$provinceId;
-                $model->regency_id=$regencyId;
-                $model->alamat=$alamatLengkap;
+                        //$model->getPrimaryKey();   
+                        FileHelper::createDirectory('uploads/' . $model->berita_id . '/img');
+                        FileHelper::createDirectory('uploads/' . $model->berita_id . '/thum');
+
+                        $model->file->saveAs('uploads/' . $model->berita_id . '/img/' . $model->file->baseName . '.' . $model->file->extension);
+
+                        Image::thumbnail('uploads/' . $model->berita_id . '/img/' . $model->file, 500, 300)
+                                ->resize(new Box(500,300))
+                                ->save('uploads/' . $model->berita_id . '/img/' . $model->file->baseName . '.' . $model->file->extension, 
+                                        ['quality' => 70]);
+                        
+                        Image::thumbnail('uploads/' . $model->berita_id . '/img/' . $model->file, 500, 300)
+                                ->resize(new Box(120,80))
+                                ->save('uploads/' . $model->berita_id . '/thum/' . $model->file->baseName . '.' . $model->file->extension, 
+                                        ['quality' => 70]);
+
+                        $getBeritaId->berita_id = $model->berita_id;
+                        $getBeritaId->filename = 'uploads/' . $model->berita_id . '/thum/' .$model->file->baseName . '.' . $model->file->extension;  
+                        $getBeritaId->created_at = date('Y-m-d H:i:s');
+                        $getBeritaId->updated_at = date('Y-m-d H:i:s');
+                        $getBeritaId->save();  
+
+
+
+                        Yii::$app->db->createCommand("
+                            DELETE FROM documents 
+                            WHERE berita_id =  $model->berita_id
+                        ")->execute();
+
+
+
+                        $getBeritaId->document_id = $getBeritaId->document_id;
+                        $getBeritaId->berita_id = $model->berita_id;
+                        $getBeritaId->filename = $model->file;  
+                        $getBeritaId->created_at = date('Y-m-d H:i:s');
+                        $getBeritaId->updated_at = date('Y-m-d H:i:s');
+                        $getBeritaId->save();  
+
+                        //print_r($getBeritaId->document_id).' ';
+                        //print_r($getBeritaId->berita_id).' ';
+                        //print_r($model->file).' ';
+                        //exit();
+
+
+                    }  
+                } 
+
+
+
+                $model->updated_at = date('Y-m-d H:i:s');
+                $model->save();     
+
+
+                return $this->redirect(['view', 'id' => $model->berita_id]);
+            } else 
+
+            {
+
+                // tampilkan user_id dari login
+                $get_user_id = User::find()->where(['username' => 
+                Yii::$app->user->identity->username])->one();
+                $model->user_id = $get_user_id->id;
+
+                // tampilkan user_id dari table berita
+                $get_user_id_beritas = Beritas::find()->where(['berita_id' => $_GET['id']])->one();
+                $model->user_id = $get_user_id_beritas->user_id;
+                
+
+                //echo 'get_user_id_beritas : '.$get_user_id_beritas->user_id.'<br>';
+                //echo 'get_user_id : '.$get_user_id->id.'<br>';
+
+                //exit();
+
+                if ($get_user_id_beritas->user_id==$get_user_id->id){
+                    return $this->render('update', ['model' => $model,]);
+                }
+
+                else {
+                    //echo 'anda tidam mepunyai aksesk untuk halaman ini';
+                    $this->redirect(['index']);
+                }
             }
-
-            else {
-                $model->province_id='';
-                $model->regency_id='';
-                $model->alamat='';           
-            }
-
-
-            // pilihan tampil nomor telepon
-            if ($model->tampilkan_notelp1){
-                $viewTelepone = (new \yii\db\Query())
-                ->select('telephone')
-                ->from(['user'])
-                ->where(['user.id'=>$model->user_id])
-                ->scalar();
-                $model->no_telp1=$viewTelepone;
-            }
-
-            else {
-                $model->no_telp1='';
-            }
-
-
-
-            // pilihan tampil mobile hpn
-            if ($model->tampilkan_notelp2){
-                $viewMobile = (new \yii\db\Query())
-                ->select('mobile_handphone')
-                ->from(['user'])
-                ->where(['user.id'=>$model->user_id])
-                ->scalar();
-                $model->no_telp2=$viewMobile;
-            }
-
-            else {
-                $model->no_telp2='';
-            }
-
-            */
-            $getBeritaId = new Documents;
-            //$model = new BeritasKehilanganDitemukan();
-
-            if ($model->file = UploadedFile::getInstance($model,'file')) {
-                if(isset($model->file->extension)){
-                    // print_r($model->file).' ';
-                    // print_r($model->file->extension).' ';
-                    // print_r($model->berita_id).' ';
-                    // print_r($model->berita_id).' ';
-                    // print_r($model->berita_id).' ';
-                    // print_r($model->berita_id).' ';
-                    //print_r($model->file->baseName).' ';
-                    //print_r($model->file->extension).' ';
-                     //exit();
-
-                    //$model->getPrimaryKey();   
-                    FileHelper::createDirectory('uploads/' . $model->berita_id . '/img');
-                    FileHelper::createDirectory('uploads/' . $model->berita_id . '/thum');
-
-                    $model->file->saveAs('uploads/' . $model->berita_id . '/img/' . $model->file->baseName . '.' . $model->file->extension);
-
-                    Image::thumbnail('uploads/' . $model->berita_id . '/img/' . $model->file, 500, 300)
-                            ->resize(new Box(500,300))
-                            ->save('uploads/' . $model->berita_id . '/img/' . $model->file->baseName . '.' . $model->file->extension, 
-                                    ['quality' => 70]);
-                    
-                    Image::thumbnail('uploads/' . $model->berita_id . '/img/' . $model->file, 500, 300)
-                            ->resize(new Box(120,80))
-                            ->save('uploads/' . $model->berita_id . '/thum/' . $model->file->baseName . '.' . $model->file->extension, 
-                                    ['quality' => 70]);
-
-                    $getBeritaId->berita_id = $model->berita_id;
-                    $getBeritaId->filename = 'uploads/' . $model->berita_id . '/thum/' .$model->file->baseName . '.' . $model->file->extension;  
-                    $getBeritaId->created_at = date('Y-m-d H:i:s');
-                    $getBeritaId->updated_at = date('Y-m-d H:i:s');
-                    $getBeritaId->save();  
-
-
-
-                    Yii::$app->db->createCommand("
-                        DELETE FROM documents 
-                        WHERE berita_id =  $model->berita_id
-                    ")->execute();
-
-
-
-                    $getBeritaId->document_id = $getBeritaId->document_id;
-                    $getBeritaId->berita_id = $model->berita_id;
-                    $getBeritaId->filename = $model->file;  
-                    $getBeritaId->created_at = date('Y-m-d H:i:s');
-                    $getBeritaId->updated_at = date('Y-m-d H:i:s');
-                    $getBeritaId->save();  
-
-                    //print_r($getBeritaId->document_id).' ';
-                    //print_r($getBeritaId->berita_id).' ';
-                    //print_r($model->file).' ';
-                    //exit();
-
-
-                }  
-            } 
-
-
-
-            $model->updated_at = date('Y-m-d H:i:s');
-            $model->save();     
-
-
-            return $this->redirect(['view', 'id' => $model->berita_id]);
-        } else {
-
-            // tampilkan user_id dari login
-            $get_user_id = User::find()->where(['username' => 
-            Yii::$app->user->identity->username])->one();
-            $model->user_id = $get_user_id->id;
-
-            // tampilkan user_id dari table berita
-            $get_user_id_beritas = Beritas::find()->where(['berita_id' => $_GET['id']])->one();
-            $model->user_id = $get_user_id_beritas->user_id;
-            
-
-            //echo 'get_user_id_beritas : '.$get_user_id_beritas->user_id.'<br>';
-            //echo 'get_user_id : '.$get_user_id->id.'<br>';
-
-            //exit();
-
-            if ($get_user_id_beritas->user_id==$get_user_id->id){
-                return $this->render('update', ['model' => $model,]);
-            }
-
-            else {
-                //echo 'anda tidam mepunyai aksesk untuk halaman ini';
-                $this->redirect(['index']);
-            }
+        }
+        else 
+        {
+            return $this->redirect(['beritas/index']); 
         }
     }
 
@@ -364,9 +382,7 @@ class BeritasKehilanganDitemukanController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+                return $this->redirect(['beritas/index']);
     }
 
 

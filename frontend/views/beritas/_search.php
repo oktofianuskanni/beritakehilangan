@@ -15,12 +15,15 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'globalSearch') ?>
 
+	<label class="sr-only" for="example">Email</label>
+	     <?php echo $form->field($model, 'globalSearch', [
+	           'inputOptions' => ['autofocus' => 'autofocus', 'class' => 'form-control transparent']
+	     ])->textInput()->input('globalSearch', ['placeholder' => "Masukkan kata kunci (Mis: No. KTP/ Nama/ Plat Nomor)"])->label(false); ?>
 
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary', 'placeholder'=>'Masukkan kata kunci (Mis: No. KTP/ Nama/ Plat Nomor)']) ?>
+        <?= Html::submitButton('Cari', ['class' => 'btn btn-primary']) ?>
 <!--         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?> -->
     </div>
 

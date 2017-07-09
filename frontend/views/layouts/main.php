@@ -60,7 +60,7 @@ BeritakehilanganAsset::register($this);
                                 <li class="active"><a href="<?php Yii::$app->request->baseUrl; ?>/beritas/index/">HALAMAN UTAMA</a></li>
                                 <li><a href="<?php Yii::$app->request->baseUrl; ?>/beritas-kehilangan-ditemukan/index/">BERITA ANDA</a></li>
                                 <li><a href="<?php Yii::$app->request->baseUrl; ?>/user/view?id=<?php echo Yii::$app->user->identity->id; ?>">PROFILE ANDA</a></li>
-                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/penjelasan/index/">PENJELASAN</a></li>
+                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/penjelasan/index/">TENTANG KAMI</a></li>
                             <?php } ?>
                         </ul>
                     </div>
@@ -108,7 +108,7 @@ BeritakehilanganAsset::register($this);
                         <div class="footer-widget">
                             <h3>Quik Links</h3>
                             <ul>
-                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/site/tentangkami">Tentang Kami</a></li>
+                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/penjelasan/index">Tentang Kami</a></li>
                                 <li><a href="<?php Yii::$app->request->baseUrl; ?>/site/contact">Hubungi Kami</a></li>
                             </ul>
                         </div>
@@ -120,9 +120,9 @@ BeritakehilanganAsset::register($this);
                         <div class="footer-widget social-widget">
                             <h3>Login dengan sosial media</h3>
                             <ul>
-                                <li><a href="http://localhost/site/auth?authclient=facebook"><i class="fa fa-facebook-official"></i>Facebook</a></li>
-                                <li><a href="http://localhost/site/auth?authclient=twitter"><i class="fa fa-twitter-square"></i>Twitter</a></li>
-                                <li><a href="http://localhost/site/auth?authclient=google"><i class="fa fa-google-plus-square"></i>Google+</a></li>
+                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/site/auth?authclient=facebook" target="_blank"><i class="fa fa-facebook-official"></i>Facebook</a></li>
+                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/site/auth?authclient=twitter" target="_blank"><i class="fa fa-twitter-square"></i>Twitter</a></li>
+                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/site/auth?authclient=google" target="_blank"><i class="fa fa-google-plus-square"></i>Google+</a></li>
                             </ul>
                         </div>
                     </div><!-- footer-widget -->
@@ -134,7 +134,7 @@ BeritakehilanganAsset::register($this);
 
         <div class="footer-bottom clearfix text-center">
             <div class="container">
-                <p>Copyright &copy; <a href="http://beritakehilangan.com">BERITAKEHILANGAN.COM</a> <?PHP echo date ('Y'); ?></p>
+                <p>Copyright &copy; <a href="<?php Yii::$app->request->baseUrl; ?>/">BERITAKEHILANGAN.COM</a> <?PHP echo date ('Y'); ?></p>
             </div>
         </div><!-- footer-bottom -->
     </footer><!-- footer -->

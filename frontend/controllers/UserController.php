@@ -52,9 +52,15 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if(Yii::$app->user->identity->id==$id){
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+
+        else {
+            return $this->redirect(['beritas/index']);
+        }
     }
 
 
@@ -110,7 +116,8 @@ class UserController extends Controller
 
             else {
                 //echo 'anda tidam mepunyai aksesk untuk halaman ini';
-                $this->redirect(['index']);
+                //$this->redirect(['beritas/index']);
+                return $this->redirect(['beritas/index']);
             }
         }
     }
@@ -123,9 +130,7 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        return $this->redirect(['beritas/index']);
     }
 
     /**

@@ -154,7 +154,7 @@ if (!Yii::$app->user->isGuest) {
                                                  },
 
                                                 'delete' => function ($model, $key, $index) {
-                                                    return $model->status === 1 ? false : false;
+                                                    return $model->status === 1 ? false : true;
                                                  },
                                                  
                                                 'update' => function ($model, $key, $index) {
