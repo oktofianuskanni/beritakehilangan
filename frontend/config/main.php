@@ -1,4 +1,6 @@
 <?php
+use yii\helpers\ArrayHelper;
+
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
     require(__DIR__ . '/../../common/config/params-local.php'),
@@ -60,22 +62,47 @@ return [
           'clients' => [
 
 
-            'facebook' => [
-                'class' => 'yii\authclient\clients\Facebook',
-                'authUrl' => 'https://www.facebook.com/dialog/oauth?display=popup',
-                'clientId' => '1927395184210308',
-                'clientSecret' => '75f6a0f22cb37479a0637597edf28f61',
-            ],
 
-/*            'google' => [
-                'class' => 'yii\authclient\OpenIdConnect',
-                'issuerUrl' => 'https://accounts.google.com',
-                'clientId' => '927107541399-7j5fgknb1u19639t0uu61abrtl59tl81.apps.googleusercontent.com',
-                'clientSecret' => 'wIj3t0tzmM1IDtaovWlhhvf8',
-                'name' => 'google',
-                'title' => 'BERITAKEHILANGAN.COM',
-            ],
-*/
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'clientId' => '146031295964640',
+                    'clientSecret' => '60530592c21f01588355b0c8652727ec',
+                ],
+
+
+
+                'twitter' => [
+                    'class' => 'yii\authclient\clients\Twitter',
+                    'attributeParams' => [
+                        'include_email' => 'true'
+                    ],
+                    'consumerKey' => 'XmztlBMjDL7HUTkFL3CRiHqMX',
+                    'consumerSecret' => 'OW7AwgYshdvHJHqaJHFyKOcIZDTlpybLgY3zy1GrJ63fBCLEBL',
+                ],
+
+/*                'google' => [
+                      'class' => 'yii\authclient\clients\Google',
+                      'clientId'     => '1042155925137-9aqu20s67685fa44o35sro6pn1ri2og3.apps.googleusercontent.com',
+                      'clientSecret' => 'n7hu7LcAEL7BH3Ck47qk9o7U',
+                ],*/
+
+
+
+                'google' => [
+                    'class' => 'yii\authclient\clients\Google',
+                    'clientId'     => '1042155925137-9aqu20s67685fa44o35sro6pn1ri2og3.apps.googleusercontent.com',
+                    'clientSecret' => 'n7hu7LcAEL7BH3Ck47qk9o7U',
+                    'normalizeUserAttributeMap' => [
+                        'email' => ['emails', 0, 'value'],
+                        'name' => 'displayName',
+                        'profile' => 'url',
+                        'avatar' => function ($attributes) {
+                            return str_replace('?sz=50', '', ArrayHelper::getValue($attributes, 'image.url'));
+                        },
+                    ]
+                ],
+
+            
           ],
         ],
 

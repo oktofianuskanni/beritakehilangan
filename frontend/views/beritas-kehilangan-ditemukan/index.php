@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use frontend\models\User;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\BeritasKehilanganSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -11,6 +12,16 @@ $this->title = 'Beritas Kehilangan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+
+<?PHP
+if (!Yii::$app->user->isGuest) {
+    $get_id = User::find()->where(['username' => 
+    Yii::$app->user->identity->username])->one();
+    //echo 'get_id :'.$get_id->id.'<br>';
+    //echo 'nama_lengkap :'.$get_id->username.'<br>';
+}
+
+?>
 
     <div class="banner-job">
         <div class="banner-overlay"></div>
@@ -31,9 +42,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="section-title tab-manu hidden-lg hidden-md">
                      <!-- Nav tabs -->      
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation"><a class="navbar-brand" href="<?php Yii::$app->request->baseUrl; ?>/beritas/index/">Utama</a></li>
+                        <li role="presentation"><a class="navbar-brand" href="<?php Yii::$app->request->baseUrl; ?>/beritas/index/">Halaman Utama</a></li>
                         <li role="presentation" class="active"><a href="#berita-anda" data-toggle="tab">Berita Anda</a></li>
-                        <li role="presentation"><a class="navbar-brand" href="<?php Yii::$app->request->baseUrl; ?>/user/index/">Profile Anda</a></li>
+                        <li role="presentation"><a class="navbar-brand" href="<?php Yii::$app->request->baseUrl; ?>/user/view?id=<?php echo Yii::$app->user->identity->id; ?>">Profile Anda</a></li>
                     </ul>
                 </div>
 

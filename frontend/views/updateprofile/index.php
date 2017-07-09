@@ -73,7 +73,17 @@ $this->params['breadcrumbs'][] = $this->title;
 						<p>
 						    Kami menganggap sangat penting untuk mengupdate profile anda, agar kami tahu data yang anda masukkan valid.
 
-						    Klik <?= Html::a('Update Profile', ['../user/index'], ['class'=>'btn btn-success']) ?>
+						    Klik 
+                            <?php 
+
+                            //echo Html::a('Update Profile', ['../user/index'], ['class'=>'btn btn-success']);                            
+                            echo Html::a('Update Profile', [Yii::$app->request->baseUrl.'/user/update?id='.$get_id->id], ['class'=>'btn btn-success']);
+
+
+
+                             ?>
+
+                            
 
 						</p>
                         

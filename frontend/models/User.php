@@ -50,7 +50,9 @@ class User extends \yii\db\ActiveRecord
             [['created_at','mobile_handphone','status', 'province_id', 'regency_id', 'district_id', 'village_id', 'status_account'], 'integer'],
             [['nama_lengkap', 'alamat', 'telephone', 'pin_bb'], 'string', 'max' => 100],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
-            //[['mobile_handphone'], 'integer', 'max' => 12],
+            [['mobile_handphone'], 'string', 'max' => 12],
+            [['mobile_handphone'], 'string', 'min' => 11],
+
             [['auth_key'], 'string', 'max' => 32],
             [['updated_at'], 'string', 'max' => 30],
             [['username'], 'unique'],

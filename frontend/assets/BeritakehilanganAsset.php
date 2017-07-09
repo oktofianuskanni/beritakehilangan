@@ -19,6 +19,8 @@ class BeritakehilanganAsset extends AssetBundle
         'css/main.css',
         'css/presets/preset1.css',
         'css/responsive.css',
+
+
         //'https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300',
         //'https://fonts.googleapis.com/css?family=Signika+Negative:400,300,600,700',
 

@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="section-title tab-manu hidden-lg hidden-md">
                      <!-- Nav tabs -->      
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation"><a class="navbar-brand" href="<?php Yii::$app->request->baseUrl; ?>/beritas/index/">Utama</a></li>
+                        <li role="presentation"><a class="navbar-brand" href="<?php Yii::$app->request->baseUrl; ?>/beritas/index/">Halaman Utama</a></li>
                         <li role="presentation"><a class="navbar-brand" href="<?php Yii::$app->request->baseUrl; ?>/user/index/">Profile Saya</a></li>
                         <li role="presentation" class="active"><a href="#berita-anda" data-toggle="tab">Berita Anda</a></li>
                     </ul>

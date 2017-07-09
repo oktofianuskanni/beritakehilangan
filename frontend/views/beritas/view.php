@@ -52,7 +52,7 @@ use frontend\models\Documents;
                         <li role="presentation"><a class="navbar-brand" href="<?php Yii::$app->request->baseUrl; ?>/beritas-kehilangan-ditemukan/index/">Berita Anda</a></li>
                         <li role="presentation"><a class="navbar-brand" href="<?php Yii::$app->request->baseUrl; ?>/user/index/">Profile Anda</a></li>
                         <?php } ?>
-                        <li role="presentation"><a class="navbar-brand" href="<?php Yii::$app->request->baseUrl; ?>/beritas/index/">Utama</a></li>
+                        <li role="presentation"><a class="navbar-brand" href="<?php Yii::$app->request->baseUrl; ?>/beritas/index/">Halaman Utama</a></li>
                         <li role="presentation" class="active"><a href="#popular-jobs" data-toggle="tab">Berita Detail</a></li>
                     </ul>
                 </div>

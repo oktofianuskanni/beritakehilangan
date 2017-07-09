@@ -58,7 +58,8 @@ class BeritasKehilanganDitemukan extends \yii\db\ActiveRecord
             [['user_id', 'category_id', 'hub_email', 'hub_wa', 'province_id', 'regency_id', 'district_id', 'village_id'], 'integer'],
             [['status_ditemukan','hub_pin_bb','alamat','tampilkan_alamatlengkap','tampilkan_notelp2','tampilkan_notelp1','jenis_berita', 'deskripsi_berita', 'status'], 'string'],
             [['tanggal_kejadian', 'tampil_nama','status_ditemukan','hub_pin_bb','alamat','tampilkan_alamatlengkap','tampilkan_notelp2','tampilkan_notelp1','tanggal_kejadian', 'created_at', 'updated_at', 'status', 'province_id', 'regency_id', 'district_id', 'village_id', 'created_at', 'updated_at', 'user_id', 'hub_wa', 'hub_email', 'no_telp1', 'pin_bb'], 'safe'],
-            [['judul_berita'], 'string', 'max' => 50],
+            //[['judul_berita'], 'string', 'max' => 50],
+
             //[['judul_berita'], 'string', 'min' => 25],
 
             [['email', 'no_telp1', 'no_telp2', 'pin_bb'], 'string', 'max' => 100],

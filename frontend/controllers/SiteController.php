@@ -14,6 +14,8 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\helpers\Html;
 use yii\Faker\Factory;
+use common\components\AuthHandler;
+
 
 
 /**
@@ -56,7 +58,7 @@ class SiteController extends Controller
 
 
 
-
+    public $successUrl = ''; //bikin variabel successUrl
     /**
      * @inheritdoc
      */
@@ -70,8 +72,101 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'successCallback'],
+                'successUrl' => $this->successUrl
+            ],
         ];
     }
+
+
+
+    public function successCallback($client)
+    {
+
+        $attributes = $client->getUserAttributes();
+
+        /** --remark
+
+        // user login or signup comes here
+        /*
+        Kalo di die(print_r($attributes));
+        maka akan keluar
+        Array ( [id] => https://www.google.com/accounts/o8/id?id=AItOawkSN3ecyrQAUOVyy9kuX-2oq-hahagake [namePerson/first] => Hafid [namePerson/last] => Mukhlasin [pref/language] => en [contact/email] => milisstudio@gmail.com [first_name] => Hafid [last_name] => Mukhlasin [email] => milisstudio@gmail.com [language] => en ) 
+
+
+        Array ( [kind] => plus#person [etag] => "Sh4n9u6EtD24TM0RmWv7jTXojqc/bG_fyyI5N7rWZ7pKBInfGsp6MEs" [gender] => male [emails] => Array ( [0] => Array ( [value] => oktofianuskanni@gmail.com [type] => account ) ) [objectType] => person [id] => 101505136064094466196 [displayName] => Oktofianus Kanni [name] => Array ( [familyName] => Kanni [givenName] => Oktofianus ) [url] => https://plus.google.com/+OktofianusKanni [image] => Array ( [url] => https://lh5.googleusercontent.com/-xI83dF7kCyM/AAAAAAAAAAI/AAAAAAAAGJU/vLKb0KjjTok/photo.jpg?sz=50 [isDefault] => ) [isPlusUser] => 1 [language] => en_GB [circledByCount] => 23 [verified] => [cover] => Array ( [layout] => banner [coverPhoto] => Array ( [url] => https://lh3.googleusercontent.com/JSpbubSZ6MbMiB2qAmPoRDYIdjzVk0RuTdArT5E5vS3g9XFn39Av4RPiXi2H-CsWXKRfv1NI4tRS=s630-fcrop64=1,206a2e9cdf1ad0ab [height] => 624 [width] => 940 ) [coverInfo] => Array ( [topImageOffset] => 0 [leftImageOffset] => 0 ) ) ) 1
+
+
+     
+        Nah data ini bisa kita gunakan untuk check apakah si user udah terdaftar ato belum..
+        *
+*/
+
+
+
+/*
+
+        $attributes = $client->getUserAttributes();
+
+        $user = \common\models\User::find()
+        ->where(['email'=>$attributes['emails'],])->one();
+        if(!empty($user)){
+            Yii::$app->user->login($user);
+        }
+        else{
+
+            //die(print_r($attributes));
+            //Simpen disession attribute user dari Google
+            $session = Yii::$app->session;
+            $session['attributes']=$attributes;
+
+            //$model->username = $session['attributes']['first_name'];
+            //$model->email = $session['attributes']['emails'];
+
+            //die(print_r($model->email));
+            //die(print_r($session['attributes']));
+            //exit();
+            // redirect ke form signup, dengan mengset nilai variabell global successUrl
+            $this->successUrl = \yii\helpers\Url::to(['signup']);
+            //$this->redirect(['signup']);
+
+        }
+*/
+
+
+
+/*               $email = \Yii::$app->mailer->compose()
+                ->setTo('oktofianuskanni@gmail.com')
+                ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
+                ->setSubject('Signup Confirmation')
+                ->setTextBody($attributes['emails'])
+                ->send();
+*/
+
+        //die(print_r($attributes));
+        //die(print_r($attributes['emails']['value']));
+        //echo $var[0]['value']
+        //print_r (str_replace('Array', '', ($attributes['emails'])));
+
+        // outputnya google: Array ( [0] => Array ( [value] => oktofianuskanni@gmail.com [type] => account ) ) 1
+
+        // $attributes = $client->getUserAttributes();
+        // $dataku=$attributes['emails'];
+        // die(print_r($dataku[0]['value']));
+        
+
+
+
+        //die(print_r($attributes['emails']));
+
+
+
+        (new AuthHandler($client))->handle();
+    }
+
+
 
     /**
      * Displays homepage.
@@ -125,9 +220,26 @@ class SiteController extends Controller
     public function actionContact()
     {
         $model = new ContactForm();
+
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            //echo Yii::$app->params['adminEmail'];
+
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
+                //echo $model->name.'<br>';
+                //echo $model->email.'<br>';
+                //echo $model->subject.'<br>';
+                //echo $model->body.'<br>';
+                //exit();
+                $email = \Yii::$app->mailer->compose()
+                ->setTo('oktofianuskanni@gmail.com')
+                ->setFrom([\Yii::$app->params['supportEmail'] => $model->email])
+                ->setSubject($model->subject)
+                ->setTextBody($model->body)
+                ->send();
+
+                Yii::$app->session->setFlash('success', 'Terima kasih telah menghubungi kami. Akan kami respon secepatnya.');
+
             } else {
                 Yii::$app->session->setFlash('error', 'There was an error sending your message.');
             }
@@ -158,6 +270,13 @@ class SiteController extends Controller
 
    public function actionSignup()
     {
+
+
+        //die(print_r($attributes['emails']));
+        //exit();
+
+
+
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {

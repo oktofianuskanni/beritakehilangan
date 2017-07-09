@@ -6,6 +6,7 @@ use yii\widgets\Pjax;
 use yii\widgets\ListView;
 use frontend\models\Documents;
 use frontend\models\Category;
+use frontend\models\User;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\BeritasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -13,10 +14,6 @@ use frontend\models\Category;
 $this->title = 'Berita Kehilangan/ Ditemukan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-
-
-
     <div class="banner-job">
         <div class="banner-overlay"></div>
         <div class="container text-center">
@@ -44,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <ul class="nav nav-tabs" role="tablist">
                         <?php if (!Yii::$app->user->isGuest) { ?>
                         <li role="presentation"><a class="navbar-brand hidden-lg hidden-md" href="<?php Yii::$app->request->baseUrl; ?>/beritas-kehilangan-ditemukan/index/">Berita Anda</a></li>
-                        <li role="presentation"><a class="navbar-brand hidden-lg hidden-md" href="<?php Yii::$app->request->baseUrl; ?>/user/index/">Profile Anda</a></li>
+                        <li role="presentation"><a class="navbar-brand hidden-lg hidden-md" href="<?php Yii::$app->request->baseUrl; ?>/user/view?id=<?php echo Yii::$app->user->identity->id; ?>">Profile Anda</a></li>
                         <?php } ?>
                         <li role="presentation"><a href="#recent-jobs" data-toggle="tab">Berita Terpopuler</a></li>
                         <li role="presentation" class="active"><a href="#popular-jobs" data-toggle="tab">Berita Terbaru</a></li>

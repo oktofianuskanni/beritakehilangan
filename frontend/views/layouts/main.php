@@ -32,9 +32,6 @@ BeritakehilanganAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
-
-
     <!-- header -->
     <header id="header" class="clearfix">
         <!-- navbar -->
@@ -56,12 +53,13 @@ BeritakehilanganAsset::register($this);
                     <div class="collapse navbar-collapse" id="navbar-collapse">
                         <ul class="nav navbar-nav">
                             <?php if (Yii::$app->user->isGuest){ ?>
-                                <li class="active"><a href="<?php Yii::$app->request->baseUrl; ?>/beritas/index/">UTAMA</a></li>
-                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/penjelasan/index/">PENJELASAN</a></li>
+                                <li class="active"><a href="<?php Yii::$app->request->baseUrl; ?>/beritas/index/">HALAMAN UTAMA</a></li>
+                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/penjelasan/index/">TENTANG KAMI</a></li>
+                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/site/contact">HUBUNGI KAMI</a></li>
                             <?php } else { ?>
-                                <li class="active"><a href="<?php Yii::$app->request->baseUrl; ?>/beritas/index/">UTAMA</a></li>
+                                <li class="active"><a href="<?php Yii::$app->request->baseUrl; ?>/beritas/index/">HALAMAN UTAMA</a></li>
                                 <li><a href="<?php Yii::$app->request->baseUrl; ?>/beritas-kehilangan-ditemukan/index/">BERITA ANDA</a></li>
-                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/user/index/">PROFILE ANDA</a></li>
+                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/user/view?id=<?php echo Yii::$app->user->identity->id; ?>">PROFILE ANDA</a></li>
                                 <li><a href="<?php Yii::$app->request->baseUrl; ?>/penjelasan/index/">PENJELASAN</a></li>
                             <?php } ?>
                         </ul>
@@ -74,7 +72,7 @@ BeritakehilanganAsset::register($this);
                     <?php if (Yii::$app->user->isGuest){ ?>
                         <li><i class="fa fa-user"></i></li>
                         <li><a href="<?php Yii::$app->request->baseUrl; ?>/site/login/">LOGIN</a></li>
-                        <li><a href="<?php Yii::$app->request->baseUrl; ?>/site/signup/">REGISTRASI</a></li>
+                        <!-- <li><a href="<?php Yii::$app->request->baseUrl; ?>/site/signup/">REGISTRASI</a></li> -->
                     <?php }  else { ?>
                         <li>
                             <?php echo Html::beginForm(['/site/logout'], 'post')
@@ -97,52 +95,7 @@ BeritakehilanganAsset::register($this);
         
         <?= Alert::widget() ?>
         <?= $content ?>
-    <!-- download -->
-    <section id="download" class="clearfix parallax-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 text-center">
-                    <h2>Download on App Store</h2>
-                </div>
-            </div><!-- row -->
 
-            <!-- row -->
-            <div class="row">
-                <!-- download-app -->
-                <div class="col-sm-4">
-                    <a href="#" class="download-app">
-                        <img src="../images/icon/16.png" alt="Image" class="img-responsive">
-                        <span class="pull-left">
-                            <span>available on</span>
-                            <strong>Google Play</strong>
-                        </span>
-                    </a>
-                </div><!-- download-app -->
-
-                <!-- download-app -->
-                <div class="col-sm-4">
-                    <a href="#" class="download-app">
-                        <img src="../images/icon/17.png" alt="Image" class="img-responsive">
-                        <span class="pull-left">
-                            <span>available on</span>
-                            <strong>App Store</strong>
-                        </span>
-                    </a>
-                </div><!-- download-app -->
-
-                <!-- download-app -->
-                <div class="col-sm-4">
-                    <a href="#" class="download-app">
-                        <img src="../images/icon/18.png" alt="Image" class="img-responsive">
-                        <span class="pull-left">
-                            <span>available on</span>
-                            <strong>Windows Store</strong>
-                        </span>
-                    </a>
-                </div><!-- download-app -->
-            </div><!-- row -->
-        </div><!-- contaioner -->
-    </section><!-- download -->
     
     <!-- footer -->
     <footer id="footer" class="clearfix">
@@ -155,12 +108,8 @@ BeritakehilanganAsset::register($this);
                         <div class="footer-widget">
                             <h3>Quik Links</h3>
                             <ul>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">All Cities</a></li>
-                                <li><a href="#">Help & Support</a></li>
-                                <li><a href="#">Advertise With Us</a></li>
+                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/site/tentangkami">Tentang Kami</a></li>
+                                <li><a href="<?php Yii::$app->request->baseUrl; ?>/site/contact">Hubungi Kami</a></li>
                             </ul>
                         </div>
                     </div><!-- footer-widget -->
@@ -169,12 +118,11 @@ BeritakehilanganAsset::register($this);
                     <!-- footer-widget -->
                     <div class="col-sm-4">
                         <div class="footer-widget social-widget">
-                            <h3>Follow us on</h3>
+                            <h3>Login dengan sosial media</h3>
                             <ul>
-                                <li><a href="#"><i class="fa fa-facebook-official"></i>Facebook</a></li>
-                                <li><a href="#"><i class="fa fa-twitter-square"></i>Twitter</a></li>
-                                <li><a href="#"><i class="fa fa-google-plus-square"></i>Google+</a></li>
-                                <li><a href="#"><i class="fa fa-youtube-play"></i>youtube</a></li>
+                                <li><a href="http://localhost/site/auth?authclient=facebook"><i class="fa fa-facebook-official"></i>Facebook</a></li>
+                                <li><a href="http://localhost/site/auth?authclient=twitter"><i class="fa fa-twitter-square"></i>Twitter</a></li>
+                                <li><a href="http://localhost/site/auth?authclient=google"><i class="fa fa-google-plus-square"></i>Google+</a></li>
                             </ul>
                         </div>
                     </div><!-- footer-widget -->
@@ -186,7 +134,7 @@ BeritakehilanganAsset::register($this);
 
         <div class="footer-bottom clearfix text-center">
             <div class="container">
-                <p>Copyright &copy; <a href="#">Jobs</a> 2017. Developed by <a href="http://themeregion.com/">ThemeRegion</a></p>
+                <p>Copyright &copy; <a href="http://beritakehilangan.com">BERITAKEHILANGAN.COM</a> <?PHP echo date ('Y'); ?></p>
             </div>
         </div><!-- footer-bottom -->
     </footer><!-- footer -->

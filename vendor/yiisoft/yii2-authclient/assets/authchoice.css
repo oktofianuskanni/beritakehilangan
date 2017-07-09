@@ -1,36 +1,115 @@
 .auth-icon {
     display: block;
-    width: 32px;
-    height: 32px;
+    width: 400px;
+    height: 50px;
     background: url(authchoice.png) no-repeat;
-    border-radius: 3px;
+    border-radius: 10px;
     margin: 0 auto;
+
+  box-sizing: border-box;
+  position: relative;
+  /* width: 13em;  - apply for fixed size */
+  margin: 0.2em;
+  padding: 0 15px 0 46px;
+  border: none;
+  text-align: left;
+  line-height: 34px;
+  white-space: nowrap;
+  border-radius: 0.2em;
+  font-size: 16px;
+  color: #FFF;
+
 }
 
-.auth-icon.google {
-    background-position: 0 -34px;
+.auth-icon:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 100%;
 }
-.auth-icon.twitter {
-    background-position: 0 -68px;
+.auth-icon:focus {
+  outline: none;
 }
-.auth-icon.yandex {
-    background-position: 0 -102px;
+.auth-icon:active {
+  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
 }
-.auth-icon.vkontakte {
-    background-position: 0 -136px;
-}
+
+/*.auth-icon.twitter {
+    background-position: 0 -50px;
+}*/
+
+
+
+
+/* Facebook */
 .auth-icon.facebook {
-    background-position: 0 -170px;
+  background-color: #4C69BA;
+  background-image: linear-gradient(#4C69BA, #3B55A0);
+  /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+  text-shadow: 0 -1px 0 #354C8C;
 }
-.auth-icon.linkedin {
-    background-position: 0 -204px;
+
+.auth-icon.facebook:before {
+  text-indent: 50px;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 15px no-repeat;
+  content: "Login dengan Facebook";
+  border-right: #364e92 1px solid;
+
 }
-.auth-icon.github {
-    background-position: 0 -238px;
+.auth-icon.facebook:hover,
+.auth-icon.facebook:focus {
+  background-color: #5B7BD5;
+  background-image: linear-gradient(#5B7BD5, #4864B1);
 }
-.auth-icon.live {
-    background-position: 0 -272px;
+
+
+
+
+
+/* Google */
+.auth-icon.twitter {
+  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
+  background: #3399ff;
 }
+.auth-icon.twitter:before {
+  text-indent: 50px;
+  content: "Login dengan Twitter";
+  border-right: #BB3F30 1px solid;
+/*  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;*/
+  background: url('/images/icon/Twitter_logo.png') 6px 15px no-repeat;
+
+}
+.auth-icon.twitter:hover,
+.auth-icon.twitter:focus {
+  background: #6666ff;
+}
+
+
+
+/* Google */
+.auth-icon.google {
+  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
+  background: #DD4B39;
+}
+.auth-icon.google:before {
+  text-indent: 50px;
+  content: "Login dengan Google";
+  border-right: #BB3F30 1px solid;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 15px no-repeat;
+}
+.auth-icon.google:hover,
+.auth-icon.google:focus {
+  background: #E74B37;
+}
+
+
+
+
+
+
 
 .auth-clients {
     display: block;
